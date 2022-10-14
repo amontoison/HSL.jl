@@ -1,8 +1,8 @@
 using HSL
+using LinearAlgebra, SparseArrays
+using Test, Random
 
-using LinearAlgebra
-using SparseArrays
-using Test
+Random.seed!(0)
 
 if isfile(joinpath(@__DIR__, "..", "deps", "deps.jl"))
   include("../deps/deps.jl")
