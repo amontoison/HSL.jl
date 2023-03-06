@@ -4,7 +4,7 @@ using LinearAlgebra
 using SparseArrays
 
 using SHA
-using METIS4_jll
+using METIS_jll
 using OpenBLAS32_jll
 using libblastrampoline_jll
 
