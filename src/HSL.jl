@@ -4,6 +4,8 @@ using Libdl
 using LinearAlgebra
 using SparseArrays
 
+import LinearAlgebra: BlasReal, BlasFloat, checksquare
+
 if haskey(ENV, "JULIA_HSL_LIBRARY_PATH")
   const libhsl = joinpath(ENV["JULIA_HSL_LIBRARY_PATH"], "libhsl.$dlext")
   const HSL_INSTALLATION = "CUSTOM"
@@ -22,20 +24,21 @@ function __init__()
   end
 end
 
-# definitions applicable to all packages
-const data_map = Dict{Type, Type}(
-  Float32 => Cfloat,
-  Float64 => Cdouble,
-  ComplexF32 => Cfloat,
-  ComplexF64 => Cdouble,
-)
+"Abstract type for using HSL linear solvers"
+abstract type HslSolver{T} end
 
 # Wrappers to call C and Fortran code
 include("wrappers.jl")
 
 # Interfaces
+include("hsl_ma48.jl")
 include("hsl_ma57.jl")
+include("hsl_ma77.jl")
+include("hsl_ma86.jl")
+include("hsl_ma87.jl")
 include("hsl_ma97.jl")
+include("hsl_mc64.jl")
+include("hsl_mc68.jl")
 include("kb07.jl")
 include("mc21.jl")
 include("mc77.jl")
